@@ -234,7 +234,7 @@ WHERE month < 1 or month > 12 -- 0 rows!
 SELECT * FROM cyclistic_trip_data -- let's check out how our data is looking
 ```
 
-## Analyze
+# Analyze
 Now that our data is processed and cleaned, we are ready to begin analyzing for patterns and trends. We start trying to understanding the data a little more by performing some simple queries:
 
 ```sql
@@ -258,7 +258,7 @@ from cyclistic_trip_data
 group by day_of_week -- saturday the most popular, followed by sunday.
 ```
 
-We are ready to start addressing the business task - converting casual riders to annual members. In order to do this, we will save analysis results into an Excel workbook by copying and pasting the results from each query into a new tab. If you are following along, please refer to the "AnalyzeData.xlsx" file, which is included in the repo. 
+We are ready to start addressing the business task - converting casual riders to annual members. In order to do this, we will aggregate data and perform calculations to identify trends and relationships. We will save analysis results into an Excel workbook by copying and pasting the results from each query into a new tab. If you are following along, please refer to the "AnalyzeData.xlsx" file, which is included in the repo. 
 
 ```sql
 -- recall ask #1: how do annual members and casual riders use cyclistic bikes differently?
@@ -288,10 +288,15 @@ group by member_casual, rideable_type -- most popular is classic bike for both m
 -- cyclistic annual members do not use docked bike
 -- save into rideable_type tab
 
--- what is the most popular station to start a ride?
+-- what is the most popular station to start a ride? 
 select start_station_name, count(ride_id) as no_of_rides_started_here
 from cyclistic_trip_data
-group by start_station_name
+order by count(ride_id) desc -- save into popular start station all tab
+
+-- group by rider type
+select start_station_name, member_casual, count(ride_id) as no_of_rides_started_here
+from cyclistic_trip_data
+group by start_station_name, member_casual
 order by count(ride_id) desc
 -- save into popular start station tab
 
@@ -299,6 +304,12 @@ order by count(ride_id) desc
 select end_station_name, count(ride_id) as no_of_rides_ended_here
 from cyclistic_trip_data
 group by end_station_name
+order by count(ride_id) desc -- saved into popular end station all tab
+
+-- group by rider type
+select end_station_name, member_casual, count(ride_id) as no_of_rides_ended_here
+from cyclistic_trip_data
+group by end_station_name, member_casual
 order by count(ride_id) desc
 -- save into popular end station tab
 
@@ -341,4 +352,19 @@ from cyclistic_trip_data
 group by member_casual, month -- save into rides per month tab
 ```
 
+### Key insights
+1. The casual rider has an overall longer average ride length compared to the annual member.
+2. The most popular month for bike rides is in August for both casual riders and members. The least busy month is January for both rider types.
+3. Casual riders take most rides during the weekends while annual members tend to ride more during the weekdays.
+
+
 At this point, we have enough to work with in order to move on the next phase of the data analysis process, share. Let's move on, but know that we can always come back to write and run more queries if needed. 
+
+# Share
+Since we have saved results of our query into an Excel workbook, let's use Tableau to visualize our data. Tableau is a great data visualization tool that allows users to create all sorts of charts into worksheets and dashboards. A dashboard allows users to get a holistic view of all data on one screen.
+
+We start by importing our excel workbook as the data source in Tableau. Upon validating the data types for each table, we notice that the average ride length is set as a string. Tableau does not have a "time" data type, but only a date & time format. As we are not able to properly work with time durations in Tableau, we revisited our Excel workbook. For each dataset that includes a time duration (tabs avg_ride_length, avg_ride_lenght2, month & ride length), we reformatted the value into a new column called "avg_ride_length_new". In order to reformat the values to a data type that would work in Tableau, we manually validated that all values were under 1 hour and eliminated the leading 0's and colon, which represented hours. We also replaced the decimal point to separate the minutes and seconds.
+
+For instance, 00:28:33.873172 would turn into 28.338873172.
+
+We kept the original column with the proper format to protect our data. However, in Tableau, we opted to hide the original column so as to not confuse ourselves during the share phase.
