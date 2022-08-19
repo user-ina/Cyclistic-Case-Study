@@ -368,3 +368,19 @@ We start by importing our excel workbook as the data source in Tableau. Upon val
 For instance, 00:28:33.873172 would turn into 28.338873172.
 
 We kept the original column with the proper format to protect our data. However, in Tableau, we opted to hide the original column so as to not confuse ourselves during the share phase.
+
+Once all the data was imported correctly, it was time to start visualizing! I created various charts such as bar charts, pie charts, and line graphs to visualize the data. I decided to use a turquoise color to represent members and a lime green color to represent casual riders. In order to stay consistent, I used the same two colors to represent the type of rider (casual or member) in each visual that included the data. Additionally, I ensured filters were accessible so viewers could focus on a particular area within the visualization, such as if they were only curious about weekly number of rides for the casual rider. Once I finished creating all my visualizations, I created a dashboard to view all my worksheets in a single page.
+
+To view all data visualizations and the completed dashboard in full detail, please visit my [**Tableau page**](https://public.tableau.com/views/CyclisticCaseStudy_16606174997380/Dashboard-Final_1?:language=en-US&:display_count=n&:origin=viz_share_link).
+
+## Key Findings
+1. **Members** make up most rides at 57.89% of the total rides.
+2. The **classic bike** is the all around most popular bike type for both members and casual riders. **Docked bikes** are only ridden by casual riders.
+3. For both types of riders:  
+* Summer months from June to September have the most bike rides, with **August** being the busiest month of the year.  
+* Winter months from December to February have the least amount of bike rides, with **January** being the least busiest month of the year.
+4. **Saturday** was the busiest day of the week for bike rides for both members and casual riders.  
+41.21% of the bike rides by casual riders are taken on the weekend days of **Saturday** and **Sunday**. Meanwhile, annual members ride bikes fairly consistently throughout the week, with most rides taking place **Tuesday** through **Thursday**.
+5. The overall average ride duration for casual riders is longer than that of the annual member.   Average ride duration for the week for both rider types was greatest during the weekend (Saturday & Sunday).
+
+
