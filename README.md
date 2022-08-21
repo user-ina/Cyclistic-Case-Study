@@ -59,7 +59,7 @@ PRIMARY KEY (ride_id)
 )
 ```
 
-Note that we can set the character types for each column in our create table script. This way, we don't have to go back and change it later ( unelss necessary).  
+Note that we can set the character types for each column in our create table script. This way, we don't have to go back and change it later (unless necessary).  
 
 I then created a table "cyclistic_trip_data"and merged all 12 months of data into it. 
 
@@ -106,7 +106,7 @@ I first started by validating if the primary key column (ride_id) was a true uni
 -- check for duplicates by counting unique ride_id's
 SELECT COUNT(DISTINCT ride_id)
 FROM cyclistic_trip_data 
--- 5,901,463 distinct rows, which is matches the total number of rows in cyclistic_trip_data dataset. Thus, all ride_id's are unique.
+-- 5,901,463 distinct rows, which matches the total number of rows in cyclistic_trip_data dataset. Thus, all ride_id's are unique.
 
 ```  
 
@@ -284,7 +284,7 @@ group by day_of_week, member_casual -- casual riders significantly use cyclistic
 -- which type of bike is most popular for casual vs annual members?
 select member_casual, rideable_type, count(ride_id)
 from cyclistic_trip_data
-group by member_casual, rideable_type -- most popular is classic bike for both members and casual rdiers
+group by member_casual, rideable_type -- most popular is classic bike for both members and casual riders
 -- cyclistic annual members do not use docked bike
 -- save into rideable_type tab
 
@@ -361,7 +361,7 @@ group by member_casual, month -- save into rides per month tab
 At this point, we have enough to work with in order to move on the next phase of the data analysis process, share. Let's move on, but know that we can always come back to write and run more queries if needed. 
 
 # Share
-Since we have saved results of our query into an Excel workbook, let's use Tableau to visualize our data. Tableau is a great data visualization tool that allows users to create all sorts of charts into worksheets and dashboards. A dashboard allows users to get a holistic view of all data on one screen.
+Since we have saved the results of our query into an Excel workbook, let's use Tableau to visualize our data. Tableau is a great data visualization tool that allows users to create all sorts of charts into worksheets and dashboards. A dashboard allows users to get a holistic view of all data on one screen.
 
 We start by importing our excel workbook as the data source in Tableau. Upon validating the data types for each table, we notice that the average ride length is set as a string. Tableau does not have a "time" data type, but only a date & time format. As we are not able to properly work with time durations in Tableau, we revisited our Excel workbook. For each dataset that includes a time duration (tabs avg_ride_length, avg_ride_lenght2, month & ride length), we reformatted the value into a new column called "avg_ride_length_new". In order to reformat the values to a data type that would work in Tableau, we manually validated that all values were under 1 hour and eliminated the leading 0's and colon, which represented hours. We also replaced the decimal point to separate the minutes and seconds.
 
@@ -369,7 +369,7 @@ For instance, 00:28:33.873172 would turn into 28.338873172.
 
 We kept the original column with the proper format to protect our data. However, in Tableau, we opted to hide the original column so as to not confuse ourselves during the share phase.
 
-Once all the data was imported correctly, it was time to start visualizing! I created various charts such as bar charts, pie charts, and line graphs to visualize the data. I decided to use a turquoise color to represent members and a lime green color to represent casual riders. In order to stay consistent, I used the same two colors to represent the type of rider (casual or member) in each visual that included the data. Additionally, I ensured filters were accessible so viewers could focus on a particular area within the visualization, such as if they were only curious about weekly number of rides for the casual rider. Once I finished creating all my visualizations, I created a dashboard to view all my worksheets in a single page.
+Once all the data was imported correctly, it was time to start visualizing! I created various charts such as bar charts, pie charts, and line graphs to visualize the data. I decided to use a turquoise color to represent members and a lime green color to represent casual riders. In order to stay consistent, I used the same two colors to represent the type of rider (casual or member) in each visual that included the data. Additionally, I ensured filters were accessible so viewers could focus on a particular area within the visualization, such as if they were only curious about the weekly number of rides for the casual rider. Once I finished creating all my visualizations, I created a dashboard to view all my worksheets in a single page.
 
 To view all data visualizations and the completed dashboard in full detail, please visit my [**Tableau page**](https://public.tableau.com/views/CyclisticCaseStudy_16606174997380/Dashboard-Final_1?:language=en-US&:display_count=n&:origin=viz_share_link).
 
@@ -383,4 +383,28 @@ To view all data visualizations and the completed dashboard in full detail, plea
 41.21% of the bike rides by casual riders are taken on the weekend days of **Saturday** and **Sunday**. Meanwhile, annual members ride bikes fairly consistently throughout the week, with most rides taking place **Tuesday** through **Thursday**.
 5. The overall average ride duration for casual riders is longer than that of the annual member.   Average ride duration for the week for both rider types was greatest during the weekend (Saturday & Sunday).
 
+# Act
+
+## Final Conclusion
+Upon inspection of the data analyzed, we determined that the main difference between annual members and casual riders is the average ride duration and the day of the week bike rides are taken. On average, casual riders take longer rides compared to members, and casual riders ride most during the weekend days of Saturday and Sunday. On the other hand, Tuesdays through Thursdays are the most popular days for bike rides by members.  
+
+One may assume that members tend to use Cyclistic for commuting purposes considering most rides are taken on the weekdays, while casual riders use Cyclistic for leisure on the weekends. Although,note that this is just an assumption made based on the data.
+
+Since casual riders have a longer average ride duration compared to members, signing up for the membership program may be more cost-efficient to the rider. 
+
+Digital media can be a great way to influence and market casual riders to become members due to its broad reach.
+
+## Next Steps
+The marketing campaign should be launched in April or May as the amount of bike rides start to drastically increase by June. Earth month is also in April, which could be a great month to launch the campaign since riding bikes is eco-friendly! Smaller marketing campaigns should also be launched throughout the year, with an emphasis on weekends since that's when casual riders ride the most.
+
+
+## Top Three Recommendations
+1. Offer a monthly trial of the annual membership at a discounted price, so casual riders can experience what it's like to be a Cyclistic member!
+2. Convey the benefits of subscribing to the annual membership to casual riders 
+- Display how much money they could have saved with the membership program every time they book and complete a trip.
+3. Create special features that are limited to members as an incentive for casual riders to sign up for the membership. These special features could include:
+- A social feed so users can add their friends/family and compare bike rides (i.e. duration, average speed, etc.)
+- View unlimited past ride history, which is aggregated to generate statistics and trends
+- Link devices such as Apple Watch and FitBit to track health data such as heart rate
+- Ability to reserve bikes in advance
 
